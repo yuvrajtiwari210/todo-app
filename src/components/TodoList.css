@@ -1,0 +1,257 @@
+/* src/components/TodoList.css */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1) COLOR PALETTE + VARIABLES
+───────────────────────────────────────────────────────────────────────────── */
+:root {
+  --bg-page:    #f5f7fa;
+  --bg-card:    #ffffff;
+  --text-main:  #2c3e50;
+  --text-muted: #7f8c8d;
+  --accent-1:   #4a90e2;   /* blue */
+  --accent-2:   #50e3c2;   /* teal */
+  --danger:     #e74c3c;   /* red */
+  --border:     #dfe6e9;
+  --shadow:     rgba(0, 0, 0, 0.1);
+  --radius-lg:  12px;
+  --transition: 0.2s ease-in-out;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2) BASE PAGE STYLING
+───────────────────────────────────────────────────────────────────────────── */
+body {
+  background: var(--bg-page);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+}
+
+.todo-container {
+  max-width: 480px;
+  margin: 3rem auto;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px var(--shadow);
+  padding: 2rem;
+  border: 1px solid var(--border);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3) HEADER
+───────────────────────────────────────────────────────────────────────────── */
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--accent-1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4) NEW-TASK INPUT + BUTTON
+───────────────────────────────────────────────────────────────────────────── */
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.input-group input:focus {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+}
+
+.input-group button {
+  background: var(--accent-2);
+  border: none;
+  color: #fff;
+  padding: 0 1.25rem;
+  font-size: 1rem;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.input-group button:hover {
+  background: var(--accent-1);
+  transform: translateY(-1px);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   5) CONTROLS: FILTER / SORT / SEARCH
+───────────────────────────────────────────────────────────────────────────── */
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-group,
+.sort-group,
+.search-group {
+  display: flex;
+  align-items: center;
+  background: #fafbfc;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.4rem 0.75rem;
+  transition: box-shadow var(--transition);
+}
+
+.filter-group:hover,
+.sort-group:hover,
+.search-group:hover {
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.controls label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-right: 0.4rem;
+}
+
+.controls select {
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--text-main);
+}
+
+.search-group input {
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--text-main);
+  width: 100%;
+}
+
+/* Ensure grid puts Search group full‐width under two columns on small screens */
+@media (max-width: 420px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6) TASK LIST
+───────────────────────────────────────────────────────────────────────────── */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fafbfc;
+  border-radius: var(--radius-lg);
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+
+.task-list li:hover {
+  background: #ffffff;
+  box-shadow: 0 3px 12px var(--shadow);
+}
+
+.task-list li.completed {
+  background: #ecf0f1;
+  border-color: #bdc3c7; /* darker gray for completed */
+}
+
+.task-list li.completed .task-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Task text area */
+.task-text {
+  flex: 1;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 1rem;
+  transition: color var(--transition);
+}
+
+.task-text:hover {
+  color: var(--accent-1);
+}
+
+/* Delete button */
+.delete-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--danger);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.5rem;
+  transition: transform var(--transition), color var(--transition);
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+  color: #c0392b;
+}
+
+/* “No tasks” placeholder */
+.no-tasks {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1.5rem 0;
+  font-size: 1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   7) SCROLL BAR CUSTOMIZATION (Optional)
+───────────────────────────────────────────────────────────────────────────── */
+.task-list {
+  max-height: 300px; /* if you want a fixed height with scrolling */
+  overflow-y: auto;
+  padding-right: 4px; /* give room for custom scrollbar */
+}
+
+.task-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background-color: var(--accent-1);
+  border-radius: 3px;
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   8) SUBTLE TRANSITIONS
+───────────────────────────────────────────────────────────────────────────── */
+input,
+button,
+select {
+  transition: border-color var(--transition),
+              box-shadow var(--transition),
+              background var(--transition),
+              transform var(--transition),
+              color var(--transition);
+}
